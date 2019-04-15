@@ -1,19 +1,19 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 )
 
 func Handle(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("%s", r)
+	log.Printf("%s", r)
 }
 
 func main() {
 	http.HandleFunc("/", Handle)
-	s := http.Server{Addr: "0.0.0.0"}
+	s := http.Server{Addr: "0.0.0.0:12345"}
 	err := s.ListenAndServe()
 	if err != nil {
-		fmt.Printf("error: %s", err)
+		log.Printf("error: %s", err)
 	}
 }
