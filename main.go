@@ -6,7 +6,21 @@ import (
 )
 
 func Handle(w http.ResponseWriter, r *http.Request) {
-	log.Printf("[Method]: %s\n[RemoteAddr]: %s\n[REQUEST_URI]: %s\n[UserAgent]: %s\n[Cookies]: %s\n[Headers]: %s\n", r.Method, r.RemoteAddr, r.RequestURI, r.UserAgent(), r.Cookies(), r.Header)
+	err := r.ParseForm()
+	if err != nil{
+		log.Printf("error: %v", err)
+	}
+	err = r.ParseMultipartForm(512)
+	if err != nil{
+		log.Printf("error: %v", err)
+	}
+	log.Printf("[Method]: %s\n", r.Method)
+	log.Printf("[RemoteAddr]: %s\n", r.RemoteAddr)
+	log.Printf("[REQUEST_URI]: %s\n", r.RequestURI)
+	log.Printf("[UserAgent]: %s\n", r.UserAgent())
+	log.Printf("[Cookies]: %s\n", r.Cookies())
+	log.Printf("[Formdata]: %v\n", r.Form)
+	log.Printf("[Headers]: %s\n", r.Header)
 }
 
 func main() {
